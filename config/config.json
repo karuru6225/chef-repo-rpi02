@@ -1,0 +1,10 @@
+{
+	"run_list" : [
+		"recipe[yum-epel]",
+		"recipe[ssh]",
+		"recipe[basic-packages]",
+		"recipe[bash]",
+		"recipe[vim]",
+		"recipe[tmux]"
+	]
+}
