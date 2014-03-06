@@ -2,7 +2,7 @@
 
 #以下のコマンドで実行する
 #ワンライナー
-#curl -L https://raw.github.com/kiyohiro-kano/chef-repo-skeleton/master/scripts/setup.sh | bash && git clone https://github.com/karuru6225/chef-repo-skeleton.git && cd chef-repo && ./scripts/prepare.sh && ./scripts/run_chef-solo.sh
+#curl -L https://raw.github.com/kiyohiro-kano/chef-repo-skeleton/master/scripts/setup.sh | bash && git clone https://github.com/kiyohiro-kano/chef-repo-skeleton.git && cd chef-repo && ./scripts/prepare.sh && ./scripts/run_chef-solo.sh
 
 set -e
 
