@@ -7,16 +7,16 @@
 set -ex
 
 if [ -f /etc/redhat-release ]; then
-	yum -y install git gcc gcc-c++ automake autoconf make openssl-devel.x86_64
+        yum -y install git gcc gcc-c++ automake autoconf make openssl-devel.x86_64
 elif [ -f /etc/debian_version ]; then
-	apt-get -y install git build-essential libssl-dev libreadline5-dev
+        apt-get -y install git build-essential libssl-dev libreadline5-dev
 else
-	echo "unsupported OS"
-	exit 1
+        echo "unsupported OS"
+        exit 1
 fi
 
 if ! type chef-solo >/dev/null 2>&1; then
-	curl -L https://www.opscode.com/chef/install.sh | bash  
+        curl -L https://www.opscode.com/chef/install.sh | bash  
 fi
 
 cat <<'EOF' > Gemfile
@@ -24,6 +24,31 @@ source 'https://rubygems.org'
 gem 'berkshelf'
 EOF
 
-/opt/chef/embedded/bin/bundle install --path vendor/bundle
+cat <<'EOF' > Berksfile
+site :opscode
+cookbook 'ruby', git: 'https://github.com/kiyohiro-kano/cookbook-ruby.git'
+EOF
 
-#/opt/chef/embedded/bin/gem
+cd `dirname $0`
+BASEDIR=`pwd`
+[ -d /tmp/chef-solo ] || mkdir -p /tmp/chef-solo
+
+cat <<'EOF' > solo.rb
+file_cache_path "/tmp/chef-solo"
+cookbook_path "${BASEDIR}/cookbooks"
+EOF
+
+cat <<'EOF' > conf.json
+{
+        "run_list" : [
+                "recipe[ruby]"
+        ]
+}
+EOF
+
+PATH=${PATH}:/opt/chef/embedded/bin/
+
+bundle install --path vendor/bundle
+bundle exec berks vendor ./cookbooks
+
+
