@@ -35,6 +35,7 @@ BASEDIR=`pwd`
 cat <<'EOF' > solo.rb
 file_cache_path "/tmp/chef-solo"
 cookbook_path "${BASEDIR}/cookbooks"
+ssl_verify_mode :verify_peer
 EOF
 
 cat <<'EOF' > conf.json
