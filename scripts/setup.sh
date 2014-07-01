@@ -29,7 +29,6 @@ site :opscode
 cookbook 'ruby', git: 'https://github.com/kiyohiro-kano/cookbook-ruby.git'
 EOF
 
-cd `dirname $0`
 BASEDIR=`pwd`
 [ -d /tmp/chef-solo ] || mkdir -p /tmp/chef-solo
 
@@ -50,5 +49,6 @@ PATH=${PATH}:/opt/chef/embedded/bin/
 
 bundle install --path vendor/bundle
 bundle exec berks vendor ./cookbooks
+chef-solo -c solo.rb -j conf.json
 
 
