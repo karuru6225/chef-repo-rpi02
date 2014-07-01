@@ -52,4 +52,6 @@ bundle install --path vendor/bundle
 bundle exec berks vendor ./cookbooks
 chef-solo -c solo.rb -j conf.json
 
+rm -rf Gemfile Berksfile conf.json cookbooks vendor
+
 
