@@ -32,9 +32,9 @@ EOF
 BASEDIR=`pwd`
 [ -d /tmp/chef-solo ] || mkdir -p /tmp/chef-solo
 
-cat <<'EOF' > solo.rb
+cat <<EOF > solo.rb
 file_cache_path "/tmp/chef-solo"
-cookbook_path ".cookbooks"
+cookbook_path "${BASEDIR}/cookbooks"
 ssl_verify_mode :verify_peer
 EOF
 
