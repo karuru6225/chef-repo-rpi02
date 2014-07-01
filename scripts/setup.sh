@@ -26,7 +26,7 @@ EOF
 
 cat <<'EOF' > Berksfile
 site :opscode
-cookbook 'ruby', git: 'https://github.com/kiyohiro-kano/cookbook-ruby.git'
+cookbook 'cookbook-ruby', git: 'https://github.com/kiyohiro-kano/cookbook-ruby.git'
 EOF
 
 BASEDIR=`pwd`
@@ -40,7 +40,7 @@ EOF
 cat <<'EOF' > conf.json
 {
         "run_list" : [
-                "recipe[ruby]"
+                "recipe[cookbook-ruby]"
         ]
 }
 EOF
