@@ -2,7 +2,7 @@
 
 #以下のコマンドで実行する
 #ワンライナー
-#curl -kL https://raw.github.com/kiyohiro-kano/chef-repo-skeleton/master/scripts/setup.sh | bash && git clone https://github.com/kiyohiro-kano/chef-repo-skeleton.git && cd chef-repo && ./scripts/prepare.sh && ./scripts/run_chef-solo.sh
+#curl -kL https://raw.github.com/karuru6225/chef-repo-skeleton/master/scripts/setup.sh | bash && git clone https://github.com/karuru6225/chef-repo-skeleton.git && cd chef-repo && ./scripts/prepare.sh && ./scripts/run_chef-solo.sh
 
 set -ex
 
@@ -26,7 +26,7 @@ EOF
 
 cat <<'EOF' > Berksfile
 site :opscode
-cookbook 'cookbook-ruby', git: 'https://github.com/kiyohiro-kano/cookbook-ruby.git'
+cookbook 'cookbook-ruby', git: 'https://github.com/karuru6225/cookbook-ruby.git'
 EOF
 
 BASEDIR=`pwd`
