@@ -4,68 +4,54 @@
 #ワンライナー
 #curl -kL https://raw.github.com/kiyohiro-kano/chef-repo-skeleton/master/scripts/setup.sh | bash && git clone https://github.com/kiyohiro-kano/chef-repo-skeleton.git && cd chef-repo && ./scripts/prepare.sh && ./scripts/run_chef-solo.sh
 
-set -e
-
-if [ -f /etc/redhat-release ]; then
-	UNAME=`cat /etc/redhat-release`
-	if [[ "${UNAME}" =~ .*CentOS.* ]];then
-		OS="centos"
-#		if [ "${REPO_URL}" != "" ];then
-#			RURL=${REPO_URL%/}
-#			RURL=${RURL//\//\\\/}
-#			mv /etc/yum.repos.d/CentOS-Base.repo{,.bak}
-#			mv /etc/yum.repos.d/epel.repo{,.bak}
-#			sed -e "s/^mirror.*\(updates\|os\)$/#\0\nbaseurl=${RURL}\/\1\//" /etc/yum.repos.d/CentOS-Base.repo.bak > /etc/yum.repos.d/CentOS-Base.repo
-#			sed -e "s/^mirror.*\(epel\).*$/#\0\nbaseurl=${RURL}\/\1\//" /etc/yum.repos.d/epel.repo.bak > /etc/yum.repos.d/epel.repo
-#		fi
-	fi
-elif [ -f /etc/debian_version ]; then
-	OS="debian"
-else
-	echo "unsupported OS"
-	exit 1
-fi
-
 set -ex
 
-if [ "${OS}" == "centos" ]; then
-	yum -y install git gcc gcc-c++ automake autoconf make openssl-devel.x86_64
-elif [ "${OS}" == "debian" ]; then
-	apt-get -y install git build-essential libssl-dev libreadline5-dev
+if [ -f /etc/redhat-release ]; then
+        yum -y install git gcc gcc-c++ automake autoconf make openssl-devel.x86_64
+elif [ -f /etc/debian_version ]; then
+        apt-get -y install git build-essential libssl-dev libreadline5-dev
+else
+        echo "unsupported OS"
+        exit 1
 fi
 
-cd /usr/local/
-rm -rf rbenv
-git clone git://github.com/sstephenson/rbenv.git rbenv
-
-cat > /etc/profile.d/rbenv.sh << EOT
-#!/bin/bash
-
-export RBENV_ROOT=/usr/local/rbenv
-export PATH="\$RBENV_ROOT/bin:\$PATH"
-eval "\$(rbenv init -)"
-EOT
-
-chmod u+x /etc/profile.d/rbenv.sh
-. /etc/profile.d/rbenv.sh
-
-if [ "`grep rbadmin /etc/group`" == "" ]; then
-	/usr/sbin/groupadd rbadmin
+if ! type chef-solo >/dev/null 2>&1; then
+        curl -L https://www.opscode.com/chef/install.sh | bash  
 fi
-chgrp -R rbadmin rbenv
-chmod -R g+rwxXs rbenv
 
-mkdir /usr/local/rbenv/plugins
-cd /usr/local/rbenv/plugins
-git clone git://github.com/sstephenson/ruby-build.git
-chgrp -R rbadmin ruby-build
-chmod -R g+rwxs ruby-build
+cat <<'EOF' > Gemfile
+source 'https://rubygems.org'
+gem 'berkshelf'
+EOF
 
-git clone https://github.com/ianheggie/rbenv-binstubs.git 
-chgrp -R rbadmin rbenv-binstubs
-chmod -R g+rwxs rbenv-binstubs
+cat <<'EOF' > Berksfile
+site :opscode
+cookbook 'cookbook-ruby', git: 'https://github.com/kiyohiro-kano/cookbook-ruby.git'
+EOF
 
-rbenv install 2.0.0-p353
-rbenv global 2.0.0-p353
-gem install bundler --no-rdoc --no-ri
+BASEDIR=`pwd`
+[ -d /tmp/chef-solo ] || mkdir -p /tmp/chef-solo
+
+cat <<EOF > solo.rb
+file_cache_path "/tmp/chef-solo"
+cookbook_path "${BASEDIR}/cookbooks"
+ssl_verify_mode :verify_peer
+EOF
+
+cat <<'EOF' > conf.json
+{
+        "run_list" : [
+                "recipe[cookbook-ruby]"
+        ]
+}
+EOF
+
+PATH=${PATH}:/opt/chef/embedded/bin/
+
+bundle install --path vendor/bundle
+bundle exec berks vendor ./cookbooks
+chef-solo -c solo.rb -j conf.json
+
+rm -rf Gemfile* Berksfile* conf.json solo.rb cookbooks vendor
+
 
