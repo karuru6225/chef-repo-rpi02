@@ -2,7 +2,7 @@
 
 #以下のコマンドで実行する
 #ワンライナー
-#curl -kL https://raw.github.com/kiyohiro-kano/chef-repo-skeleton/master/scripts/setup.sh | bash && git clone https://github.com/kiyohiro-kano/chef-repo-skeleton.git && cd chef-repo && ./scripts/prepare.sh && ./scripts/run_chef-solo.sh
+#curl -kL https://raw.github.com/karuru6225/chef-repo-skeleton/master/scripts/setup.sh | bash && git clone https://github.com/karuru6225/chef-repo-skeleton.git && cd chef-repo && ./scripts/prepare.sh && ./scripts/run_chef-solo.sh
 
 set -e
 
@@ -10,14 +10,6 @@ if [ -f /etc/redhat-release ]; then
 	UNAME=`cat /etc/redhat-release`
 	if [[ "${UNAME}" =~ .*CentOS.* ]];then
 		OS="centos"
-#		if [ "${REPO_URL}" != "" ];then
-#			RURL=${REPO_URL%/}
-#			RURL=${RURL//\//\\\/}
-#			mv /etc/yum.repos.d/CentOS-Base.repo{,.bak}
-#			mv /etc/yum.repos.d/epel.repo{,.bak}
-#			sed -e "s/^mirror.*\(updates\|os\)$/#\0\nbaseurl=${RURL}\/\1\//" /etc/yum.repos.d/CentOS-Base.repo.bak > /etc/yum.repos.d/CentOS-Base.repo
-#			sed -e "s/^mirror.*\(epel\).*$/#\0\nbaseurl=${RURL}\/\1\//" /etc/yum.repos.d/epel.repo.bak > /etc/yum.repos.d/epel.repo
-#		fi
 	fi
 elif [ -f /etc/debian_version ]; then
 	OS="debian"
