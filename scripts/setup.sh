@@ -21,7 +21,7 @@ fi
 
 cat <<'EOF' > Gemfile
 source 'https://rubygems.org'
-gem 'berkshelf', "~>2.0"
+gem 'berkshelf'
 EOF
 
 cat <<'EOF' > Berksfile
