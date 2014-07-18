@@ -39,7 +39,7 @@ eval "\$(rbenv init -)"
 EOT
 
 chmod u+x /etc/profile.d/rbenv.sh
-. /etc/profile.d/rbenv.sh
+/etc/profile.d/rbenv.sh
 
 if [ "`grep rbadmin /etc/group`" == "" ]; then
 	/usr/sbin/groupadd rbadmin
