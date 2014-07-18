@@ -10,5 +10,6 @@ fi
 BASE="/opt/chef/embedded/bin"
 PATH=${PWD}/.bundle/bin:${BASE}:${PATH}
 bundle install --path ./.bundle/gems --binstubs ./.bundle/bin
-berks install --path ./cookbooks
+rbenv rehash
+berks vendor ./cookbooks
 ./config_solo.sh

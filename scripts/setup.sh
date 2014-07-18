@@ -57,7 +57,8 @@ git clone https://github.com/ianheggie/rbenv-binstubs.git
 chgrp -R rbadmin rbenv-binstubs
 chmod -R g+rwxs rbenv-binstubs
 
-rbenv install 2.0.0-p353
-rbenv global 2.0.0-p353
+VERSION=`rbenv install -l | awk '{ print $1 }' | grep ^2 | grep -v '\(-rc\|-dev\|preview\)' | tail -n 1`
+rbenv install ${VERSION}
+rbenv global ${VERSION}
 gem install bundler --no-rdoc --no-ri
 
