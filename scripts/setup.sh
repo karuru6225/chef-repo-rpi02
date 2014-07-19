@@ -62,5 +62,5 @@ chmod -R g+rwxs rbenv-binstubs
 VERSION=`rbenv install -l | awk '{ print $1 }' | grep ^2 | grep -v '\(-rc\|-dev\|preview\)' | tail -n 1`
 rbenv install ${VERSION}
 rbenv global ${VERSION}
-#gem install bundler --no-rdoc --no-ri
+gem install bundler --no-rdoc --no-ri
 
