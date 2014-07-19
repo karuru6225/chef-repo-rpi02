@@ -11,5 +11,5 @@ fi
 bundle config build.nokogiri --use-system-libraries
 bundle install --path ./.bundle/gems --binstubs ./.bundle/bin
 rbenv rehash
-berks vendor ./cookbooks
+berks install --path ./cookbooks
 ./config_solo.sh
