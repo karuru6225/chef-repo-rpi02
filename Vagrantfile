@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "CentOS6.4_x64_VB4.3.2_Chef11.6.2"
+  config.vm.box = "chef/debian-7.6"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -86,21 +86,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.berkshelf.enabled = true
 
-  config.vm.provision :shell, :inline => "sudo service iptables stop"
-  config.vm.provision :shell, :inline => "sudo chkconfig iptables off"
+#  config.vm.provision :shell, :inline => "sudo service iptables stop"
+#  config.vm.provision :shell, :inline => "sudo chkconfig iptables off"
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
 	chef.data_bags_path = "data_bags"
-	chef.encrypted_data_bag_secret = "/vagrant/key"
+#	chef.encrypted_data_bag_secret = "/vagrant/key"
 
-	chef.add_recipe "yum::epel"
-	chef.add_recipe "basic-packages"
 	chef.add_recipe "bash"
+	chef.add_recipe "basic-packages"
 	chef.add_recipe "vim"
-	chef.add_recipe "git"
 	chef.add_recipe "tmux"
-	chef.add_recipe "ssh"
 end
   # config.vm.provision :chef_solo do |chef|
   #   chef.cookbooks_path = "../my-recipes/cookbooks"
