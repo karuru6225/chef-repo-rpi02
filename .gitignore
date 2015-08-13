@@ -1,3 +1,6 @@
-/.vagrant/*
-/Berksfile.lock
-/cookbooks/*
+.DS_Store
+.*.swp
+.vagrant
+.kitchen/
+cookbooks
+Berksfile.lock
