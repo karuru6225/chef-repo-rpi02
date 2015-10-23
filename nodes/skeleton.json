@@ -1,0 +1,9 @@
+{
+  "name": "skeleton",
+  "run_list": [
+    "recipe[bash]",
+    "recipe[basic-packages]",
+    "recipe[vim]",
+    "recipe[tmux]"
+  ]
+}
