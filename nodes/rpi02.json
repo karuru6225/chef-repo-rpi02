@@ -3,7 +3,8 @@
   "run_list": [
     "recipe[bash]",
     "recipe[basic-packages]",
-    "recipe[vim]",
-    "recipe[driver]"
+    "recipe[driver]",
+    "recipe[hostapd]",
+    "recipe[vim]"
   ]
 }
