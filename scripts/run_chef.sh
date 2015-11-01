@@ -1,8 +1,7 @@
 #!/bin/bash
 
 usage_exit() {
-	echo "Usage: $0 [-u] [-y|-n] [-h] -j {chef node file} -t {target dir} -l {debug|info|warn|error|fatal}" 1>&2
-	echo "-u update cookbooks"
+	echo "Usage: $0 [-y|-n] [-h] -j {chef node file} -t {target dir} -l {debug|info|warn|error|fatal}" 1>&2
 	echo "-y don't confirm actually run"
 	echo "-n only why-run"
 	echo "-h show this help"
@@ -24,8 +23,6 @@ do
 	case $OPT in
 		y)	YES=1
 			;;
-		u)	UPDATE=1
-			;;
 		h)	usage_exit
 			;;
 		j)	NODE=$OPTARG
@@ -39,7 +36,7 @@ do
 	esac
 done
 
-if [ "$NODE" = "" -a $UPDATE = 0 ]; then
+if [ "$NODE" = "" ]; then
 	usage_exit
 fi
 
@@ -52,13 +49,6 @@ if [ ! -d '.chef' ]; then
 	exit 1
 fi
 
-if [ ! -d 'cookbooks' ]; then
-	berks vendor cookbooks 
-fi
-if [ $UPDATE = "1" ];
-then
-	berks update && berks vendor cookbooks 
-fi
 
 if [ "$NODE" = "" ]; then
 	exit 0

@@ -1,9 +1,9 @@
 {
-  "name": "skeleton",
+  "name": "rpi02",
   "run_list": [
     "recipe[bash]",
     "recipe[basic-packages]",
     "recipe[vim]",
-    "recipe[tmux]"
+    "recipe[driver]"
   ]
 }
