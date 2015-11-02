@@ -4,6 +4,7 @@
     "recipe[bash]",
     "recipe[basic-packages]",
     "recipe[driver]",
+    "recipe[net-dev]",
     "recipe[hostapd]",
     "recipe[vim]"
   ]
