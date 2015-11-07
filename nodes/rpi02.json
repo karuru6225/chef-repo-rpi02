@@ -6,6 +6,7 @@
     "recipe[driver]",
     "recipe[net-dev]",
     "recipe[hostapd]",
+    "recipe[dnsmasq]",
     "recipe[vim]"
   ]
 }

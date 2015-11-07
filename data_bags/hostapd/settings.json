@@ -1,0 +1,15 @@
+{
+  "id": "settings",
+  "ssid": {
+    "encrypted_data": "LZQrlJP28F5MGhysydkEeL49LlCK0cUnKO8NRKLrfLI=\n",
+    "iv": "O1CR0BmuNVf3y7u4FJcwNQ==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "pass": {
+    "encrypted_data": "M31IfddNyxWNsR3xq+oiCTXCzQYZI1snQi4ZD3mi0To=\n",
+    "iv": "+PtGnqIpX/Lf+7WSTROQog==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

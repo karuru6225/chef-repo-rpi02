@@ -10,3 +10,28 @@
 package 'hostapd' do
   action :install
 end
+
+service 'hostapd' do
+  action [:enable]
+end
+
+settings = Chef::EncryptedDataBagItem.load('hostapd', 'settings')
+template '/etc/hostapd/hostapd.conf' do
+  source 'hostapd.conf.erb'
+  owner 'root'
+  group 'root'
+  mode 00600
+  variables(
+    ssid: settings['ssid'],
+    pass: settings['pass']
+  )
+  notifies :restart, 'service[hostapd]', :delayed
+end
+
+cookbook_file '/etc/default/hostapd' do
+  source 'hostapd'
+  owner 'root'
+  group 'root'
+  mode 00644
+  notifies :restart, 'service[hostapd]', :delayed
+end

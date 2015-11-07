@@ -7,6 +7,6 @@ node_path        "#{chef_repo_dir}/nodes"
 role_path        "#{chef_repo_dir}/roles"
 environment_path "#{chef_repo_dir}/environments"
 data_bag_path    "#{chef_repo_dir}/data_bags"
-#encrypted_data_bag_secret "#{chef_repo_dir}/data_bag_key"
+encrypted_data_bag_secret "#{chef_repo_dir}/data_bag_key"
 
 knife[:berkshelf_path] = "#{chef_repo_dir}/cookbooks"
