@@ -130,7 +130,7 @@ generate_rule_file(){
 		:OUTPUT ACCEPT [0:0]
 		:POSTROUTING ACCEPT [0:0]
 		<% @forwards.each do |sport, dest| %>
-			-A PREROUTING -i ppp0 -p tcp -m tcp --dport <%= @sport %> -j DNAT --to-destination <%= @dest %>
+			-A PREROUTING -i ppp0 -p tcp -m tcp --dport <%= sport %> -j DNAT --to-destination <%= dest %>
 		<% end %>
 		-A POSTROUTING -s 192.168.62.0/24 -o ppp0 -j MASQUERADE
 		COMMIT

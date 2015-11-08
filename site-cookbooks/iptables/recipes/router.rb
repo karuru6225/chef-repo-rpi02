@@ -1,7 +1,7 @@
 include_recipe "iptables::common"
 
 settings = Chef::EncryptedDataBagItem.load('network', 'settings')
-template '/etc/iptables/iptables.sh' do
+template '/etc/iptables/iptables' do
   source 'iptables_router.sh.erb'
   owner 'root'
   group 'root'
@@ -9,4 +9,5 @@ template '/etc/iptables/iptables.sh' do
   variables(
     forwards: settings['forwards']
   )
+  notifies :restart, 'service[iptables]', :delayed
 end
