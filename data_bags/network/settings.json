@@ -1,62 +1,80 @@
 {
   "id": "settings",
   "network": {
-    "encrypted_data": "u7wpqauN/H9QhWr9u400WOTsjWKX2cfv8PcsK1wlPgc=\n",
-    "iv": "Q6BimxQc/GqVehE1zPubqw==\n",
+    "encrypted_data": "e0Yphvo5dNR1hHfU4h4ZtPMrbdk0rLHElA5dxHz8kaU=\n",
+    "iv": "dcHRre3YZ6AG7+pufFLkog==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "dns_server": {
-    "encrypted_data": "GSZXi6Fu/Hm4HnPFi4UfdOqJKHn+V+tmRG0Efjs4EsE=\n",
-    "iv": "slm1chJvqsOzCw/AosPywQ==\n",
+    "encrypted_data": "iUeOH4CACebiObkJyfnDfac0lhEkt2TGGwc2UWrq43A=\n",
+    "iv": "ta+ifbH2c3Xvj3yze0MO4g==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "router": {
-    "encrypted_data": "EbUDybpGcro3bfuv7RrsosQkDE8N/2m7FBD3jOkwFAY=\n",
-    "iv": "M8iHd077weShnqheca3RKg==\n",
+    "encrypted_data": "sZp/A3m7GNXlWG22ncml+ex8szjAftJ7FxhEiuLwS3c=\n",
+    "iv": "dKlDEATzEhiwW+F3eWC2Cw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "netmask": {
-    "encrypted_data": "RCb83DcBx9AgoK5KUFCSqNTD/+8hkPX6EBM6wQdUejpAhRKWubV+YUWZzmqM\n6UDP\n",
-    "iv": "Jm2jt+ejkGhmN1yh9mu8nQ==\n",
+    "encrypted_data": "C+OPG9Mc0lR4mbD3PrL8sCEUaFUJpibtWWbYqvsb+JloTnnd5Xq3zDwvR0zu\nL3FP\n",
+    "iv": "jq91JaXpCayxqCpQGzhQxg==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "broadcast": {
-    "encrypted_data": "F7oZxr/sxN5rY0AVLJIxagCK7dbLOxyAKGawwIuZ/SqWGGn+CX6d8QXVuazW\nrBIQ\n",
-    "iv": "LngydlgozSB1/vbOyLFN2A==\n",
+    "encrypted_data": "G+nTTWKM7OVjR84MNUiG13l5owvCnnOlnLcCe6O0YJRlOhCoCJl2/zg6k3MQ\nAWgl\n",
+    "iv": "niJXvfEzavC5vjIf94yYQw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "domain": {
-    "encrypted_data": "wH7DnzxrOZn2CUc3qMWptqZb0PJXx8bhb/CGJqLWWuM=\n",
-    "iv": "SkYfcLVbmxSXbvj0XjVvCA==\n",
+    "encrypted_data": "1E7jBRdMHfpGdEHX44TK4K0iNU3dm22SaVnt8qgIzlI=\n",
+    "iv": "09vxBbJzbR9N7UE0Zd7ycQ==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "range_start": {
-    "encrypted_data": "/ikeZ+xbWdUO8aIFiT0p0U7HKzHkKWxHSKbni2lYAeY=\n",
-    "iv": "SfvFuda4vx6lThiosQDgwA==\n",
+    "encrypted_data": "EyYicbJ7SHrAVGs4GgZqVayKd+8TgaoDpkJK4UqztpU=\n",
+    "iv": "kMLOpNjRQ6ifwTh2o1WS3g==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "range_end": {
-    "encrypted_data": "WucVS7QF3DmpyMyPHfFMqKdQbaab6LLssUciQK4SRzI=\n",
-    "iv": "yz5q/pHvUuVxkOpP1Hzn4g==\n",
+    "encrypted_data": "Y/5JHVzz8SySVaf3SafuZhPzLjutXTpgal/Uda8+84g=\n",
+    "iv": "YUAS+hiJNkxiyXSSzDl14A==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "ddns_url": {
+    "encrypted_data": "F5xWaYE4lD5QjYkE/HV6qaxQx3QhaXfMhqwHabcok15XWucelnRo+Kctlo+V\nz6B2R4y6vmVwHTM8b2J1AmYfOw==\n",
+    "iv": "tgzgBxdb56Qohlb2yPw9lg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "ddns_user": {
+    "encrypted_data": "FzsVwnCNJ4k0ElB3GqngUTqPQaSd89S7RzIjpACmx+Y=\n",
+    "iv": "iez1gPz8qtCTvdgbHUASSg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "ddns_pass": {
+    "encrypted_data": "3xmlT96RiTe8CyxYUlG8vWOFJeAopEWdwrkufWmED8k=\n",
+    "iv": "3Jn/QgfafrVIHLi63M6DtQ==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "hosts": {
-    "encrypted_data": "xc36WG+K8YpO+tS2fsT9d5p43HFDpRaRmH1mRVIb5OFIApgEPZPhWbFK/B8e\n+pIVWc7X6G4KLCPOg/to4YtDRha0l0xHE4RDN8hn7dkS6409ulZP2sC/keaR\n/rIwDoChgW8GIuH+dXDtLnebFvHUBeASRBPH7F0q4a/2QsyXN/yrAhICV/jJ\naBPnHpih0A0JHxMK50PvmNH678m+RwHLP+kajrHmlMaLgIYhWV6O2L0sv1kc\nP8QrPGlhfo9+UKUUu0R5TB6KlWDuXeqDm5A8wqZ75Qb+VaU3DXdVb+9fWZHb\nyVXciCzCWxGx+4QOnodDq2+pUl2YVvqtjvxjxnC+u8t9TsyU648PIDiDUPtM\n0cy4jaTYGMbzWvschpsFiESi0LzyPNq2BSZWn6YepNO73xZQ6dxCeQm/wKP2\nss7SX18B0x29SDaeYb6//ROsoYULiiBw1Sh8obeUQYatYARJyLEmZE7FR17s\nSiXT+AMAlOkUhjvrFBfFJIscK/ledpCiitvynwnN76nJdYVCREE+dDtmobCW\nbxGF0yFnP7G/fk/xusvRAe0VZMfhOU3fhigqcng2LvCVupLkkBMsoyuZ0Txe\nr2NiroCNLRidtZ7iMqGHdvFMLJdcgfSUGEHWVDgn5ZIRQqJPQhtlrRpHUVBX\na3B2xxW02tgVsGGWoCIgrjPUJoYb0/vShkF9IpMCkO/VZYMOz4S+TTMfotoH\ngratHAwlksEAuH30HY5b3Ppvuhh98NZlNF5u8xMopHekrCidRXcF6/FvR4YY\ny1/tPOPmCWMmFzC04/xtMCshLZgYoLQdTSiABffmWUofWyzRJ4kte27nLEh3\nz+8HOLaP5c0EnfEPkSiliF9ITL3ZgyIoecYPLsaKDiwsAS8IgK/wIFRllnPW\nWUBa4yeOIpZkUyAKP99KjypjZbGA1BFvWICJbvsgu+Bbo72eBP0UYNupqpf2\n",
-    "iv": "6Vmfl6Qu8IREdIjXD9A5+w==\n",
+    "encrypted_data": "DwBcMEVcZur2+MTHJp/j2uDQNeeY8CgVbkCPPcLm2rmQDO+vKCh77k784tIs\nbFGhrfUk4P84XAD5wQhLNoJQiVC573n/l4+QZ3TpHfzL9BzryueJbbnV14m8\nG3Qfqktg0LIu2yb+ZnmtoA6z/muK1kmAHsaj4tgHWiicOKsqr66orXy/R48G\nWG2k0Sf+1QTbnQGzF5z2U1kQLUpNhNM3BTbIzXJOgMslTaCo+CbVU2Z9J286\n6StQ5MXbJeFcrTqAMB9PnMIqSeGpl0dM93BuezwPw/m/qtfeKf8oCb0hFBxl\nIaN4y0dDuJO/HjbG/riCecMALDtdrQE4UJf9aYvxQvVoJ0vgTPJv1RA0Yhjp\nqH99wBWVN4jNCJ6Bd2b1ZWj5m3XiFL3Jm583cXian01oLWMS6QSz3a+o7NQ4\ngWyNmDPYiimuarIuDw2KcLxtkc0iAPhQNEWAP4jT+d8xwwno2mEvWeYy2LH2\n1926JDyYTdmPn343T5h3RcxjuFMGRZ0ci8UfctZexcGJ8vRnVZa7NgX4XUTV\nOJH3Yjl+y59IDM3PrQFMvpeHO6TSmi2ML8vabFcrrO2OuLFnBODrFGLmihhR\n03IoezdiWj18j2dAiS0PfiH4tLWrimPEs12vb6BbcdLn8JN8G/l4IY9diSX1\nVmAfuGMMDHB+c7gWeoW3KsPwQ3w7xZDZDDvVBvrhEy0AzfoeL8jC8Fa9J/lF\nvB56FCH00+l7uODgUSAKJdaQWOKVaz/WWiTHUkSzuGJujxPNTRMFToTIMfYa\nYMviOkPmm76JOjxxH+NZoOVwHATWFGaduhmIJ2oNfBiRNaurFRddwH67EYms\nQeq0WoPgkVY3m9qRuhuZcUIeH7CAHGF5U7jtekJkeZSGlvIaNNIHKjDST+R2\nRlUTYopFb4I5UF6MVY2kLx+HNMc6ECAVCyQeGqfGZpEiKhqgC5aOdbRufXNY\n",
+    "iv": "v7cEBqatJ7lQb1bnZlyklQ==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "forwards": {
-    "encrypted_data": "6KwwZK7DAiziLrwANXHcB2UOWe+DAlgzroaVmP+8XS2xbFx5+eAROtwIwTCV\nifPr3/Qa2q871PwdpaRZ9EaltRHKhITNY1UO4USvceG4AxoR0eHUaFVJxdBJ\nADfaD3Rw\n",
-    "iv": "20+58cdnxBztmNv8XltTJQ==\n",
+    "encrypted_data": "1UW4Jza5FZEPmEBwRDv+dXvtQWU2Y4LyQlFrljWZUsThjrIkZiaFTQdt4ar9\nHCVBPCupl3dbjHX/iHrdNlAaWL5A9fWMofu+dXNxRyS44o60X5ds5CtY5Kgq\nUTP62oJY\n",
+    "iv": "CRf6uWhlDfolfv6f+5DKZQ==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   }

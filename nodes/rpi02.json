@@ -8,6 +8,9 @@
     "recipe[hostapd]",
     "recipe[dnsmasq]",
     "recipe[iptables::router]",
+    "recipe[ddns]",
+    "recipe[basic-settings::ntpdate]",
+    "recipe[basic-settings::git]",
     "recipe[vim]"
   ]
 }

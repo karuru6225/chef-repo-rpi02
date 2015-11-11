@@ -1,0 +1,5 @@
+[user]
+	email = e2hjhi@gmail.com
+	name = karuru6225
+[alias]
+  lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=iso --abbrev-commit

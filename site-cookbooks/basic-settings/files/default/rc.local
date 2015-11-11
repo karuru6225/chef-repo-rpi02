@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+if [ -d /etc/rc.local.d ]; then
+  for i in /etc/rc.local.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
+
+exit 0
