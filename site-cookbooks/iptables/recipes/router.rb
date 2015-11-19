@@ -7,7 +7,8 @@ template '/etc/iptables/iptables' do
   group 'root'
   mode 00744
   variables(
-    forwards: settings['forwards']
+    forwards: settings['forwards'],
+    drop_countries: %w{CN KR TW HK KP}
   )
   notifies :restart, 'service[iptables]', :delayed
 end

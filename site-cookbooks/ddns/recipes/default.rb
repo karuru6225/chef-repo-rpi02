@@ -10,5 +10,5 @@
 settings = Chef::EncryptedDataBagItem.load('network', 'settings')
 cron 'ddns_register_ip_address' do
   minute '29'
-  command "/usr/bin/wget --http-user=#{settings['ddns_user']} --http-password=#{settings['ddns_pass']} #{settings['ddns_url']}"
+  command "/usr/bin/curl -L -u #{settings['ddns_user']}:#{settings['ddns_pass']} #{settings['ddns_url']} > /dev/null 2>&1"
 end

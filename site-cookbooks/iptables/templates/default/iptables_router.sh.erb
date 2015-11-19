@@ -6,14 +6,9 @@ set_variables() {
 	DATE_FILE="/etc/iptables/delegated-apnic-latest_date"
 	DAL_FILE="/etc/iptables/delegated-apnic-latest"
 	RULE_FILE="/etc/iptables/iptables.rule"
-	LOGFILE="/var/log/iptables.log"
 	DENY_IP_LIST_FILE="/etc/iptables/denyIpList.txt"
 	DATE_REMOTE=`wget -S --spider http://ftp.apnic.net/stats/apnic/delegated-apnic-latest 2>&1 | grep Last-Modified`
 	DO_WGET=1
-}
-
-echoMsg() {
-	echo `date +"%R %F"`" "$1 >> ${LOGFILE}
 }
 
 update_dalfile() {
@@ -47,33 +42,31 @@ update_dalfile() {
 	if [ ${DO_WGET} = 1 ];
 	then
 		echo "${DATE_REMOTE}" > "${DATE_FILE}"
-		echoMsg "Wget"
 		wget -O "${DAL_FILE}" http://ftp.apnic.net/stats/apnic/delegated-apnic-latest
-	else
-		echoMsg "Not Wget"
 	fi
 }
 
 drop_settings(){
-	ADDRESSES=(`cat "${DAL_FILE}" | grep '^apnic|CN|ipv4\|^apnic|KR|ipv4\|^apnic|TW|ipv4\|^apnic|HK|ipv4\|^apnic|KP|ipv4' | awk '
-	BEGIN {
-		FS = "|";
-		OFMT = "%d"; 
-		for (i = 0; i < 32; i++) 
+	for cc in <%= @drop_countries.join(' ') %>; do
+		ADDRESSES=(`cat "${DAL_FILE}" | grep "^apnic|${cc}|ipv4" | awk '
+		BEGIN {
+			FS = "|";
+			OFMT = "%d";
+			for (i = 0; i < 32; i++)
+			{
+				pow[32 - i] = 2 ^ i;
+			}
+		}
 		{
-			pow[32 - i] = 2 ^ i;
-		} 
-	}
-	{
-		for (j in pow)
-		{
-			if ($5 == pow[j]) print $4 "/" j;
-		} 
-	}
-	'`);
-	i=1;
-	for ADDRESS in ${ADDRESSES[@]}; do
-		echo "-A INPUT -s ${ADDRESS} -j drop-cntry"
+			for (j in pow)
+			{
+				if ($5 == pow[j]) print $4 "/" j;
+			}
+		}
+		'`);
+		for ADDRESS in ${ADDRESSES[@]}; do
+			echo "-A INPUT -s ${ADDRESS} -j drop-country-${cc}"
+		done
 	done
 }
 
@@ -130,7 +123,7 @@ generate_rule_file(){
 		:OUTPUT ACCEPT [0:0]
 		:POSTROUTING ACCEPT [0:0]
 		<% @forwards.each do |sport, dest| %>
-			-A PREROUTING -i ppp0 -p tcp -m tcp --dport <%= sport %> -j DNAT --to-destination <%= dest %>
+		-A PREROUTING -i ppp0 -p tcp -m tcp --dport <%= sport %> -j DNAT --to-destination <%= dest %>
 		<% end %>
 		-A POSTROUTING -s 192.168.62.0/24 -o ppp0 -j MASQUERADE
 		COMMIT
@@ -138,7 +131,9 @@ generate_rule_file(){
 		:INPUT DROP [0:0]
 		:FORWARD ACCEPT [0:0]
 		:OUTPUT ACCEPT [0:0]
-		:drop-cntry - [0:0]
+		<% @drop_countries.each do |cc| %>
+		:drop-country-<%= cc %> - [0:0]
+		<% end %>
 		:fragment - [0:0]
 		:net-bios - [0:0]
 		-A INPUT -s 10.0.0.0/8 -i ppp0 -j DROP
@@ -155,14 +150,15 @@ generate_rule_file(){
 	accept_settings
 	cat <<- EOC
 		-A INPUT -p tcp -m tcp --dport 22 --tcp-flags FIN,SYN,RST,ACK SYN -m state --state NEW -j DROP
-		-A INPUT -j LOG --log-prefix "[IPTABLES INPUT DROP] " --log-level 7
 		-A FORWARD -p tcp -m multiport --dports 135,137,138,139,445 -j net-bios
 		-A FORWARD -p udp -m multiport --dports 135,137,138,139,445 -j net-bios
 		-A FORWARD -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 		-A OUTPUT -o ppp0 -p tcp -m multiport --dports 135,137,138,139,445 -j net-bios
 		-A OUTPUT -o ppp0 -p udp -m multiport --dports 135,137,138,139,445 -j net-bios
-		-A drop-cntry -j LOG --log-prefix "[IPTABLES CONTRY DROP] " --log-level 7
-		-A drop-cntry -j DROP
+		<% @drop_countries.each do |cc| %>
+		-A drop-country-<%= cc %> -j LOG --log-prefix "[IPTABLES COUNTRY-<%= cc %> DROP] " --log-level 7
+		-A drop-country-<%= cc %> -j DROP
+		<% end %>
 		-A fragment -j LOG --log-prefix "[IPTABLES fragment DROP] " --log-level 7
 		-A fragment -j DROP
 		-A net-bios -j LOG --log-prefix "[IPTABLES NetBIOS DROP] " --log-level 7
@@ -179,7 +175,6 @@ generate_rule_file(){
 }
 
 update() {
-	echoMsg "Update"
 	set_kernel_flags
 	echo "generate_rule_file"
 	generate_rule_file > ${RULE_FILE}
@@ -189,23 +184,6 @@ update() {
 
 set_variables
 update_dalfile
-
-# 引数が1で(すでにNetFilterの設定がされていて)
-# IP割り当て状況が更新されていなかったら
-# NetFilterの設定を更新しない
-if [ $# = 1 ];
-then
-	echoMsg "From Cron";
-	if [ ${DO_WGET} = 0 ];
-	then
-		echo "Not Update NetFilter Setting...."
-		echoMsg "Not Update"
-	else
-		update
-	fi
-else
-	echoMsg "From rc.local";
-	update
-fi
+update
 
 exit 0
