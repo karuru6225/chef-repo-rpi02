@@ -8,7 +8,7 @@
 #
 
 cookbook_file '/lib/modules/3.18.0-20-rpi2/kernel/drivers/net/wireless/8812au.ko' do
-  source '8812au.ko'
+  source '8812au.ko.rpi02'
   owner 'root'
   group 'root'
   mode 00644
