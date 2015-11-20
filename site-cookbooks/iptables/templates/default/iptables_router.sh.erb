@@ -3,11 +3,12 @@ echo "Start NetFilter Setting....";
 
 # 各種変数の設定
 set_variables() {
-	DATE_FILE="/etc/iptables/delegated-apnic-latest_date"
-	DAL_FILE="/etc/iptables/delegated-apnic-latest"
+	DATE_FILE="/etc/iptables/ip_list_date"
+	DAL_FILE="/etc/iptables/ip_list"
 	RULE_FILE="/etc/iptables/iptables.rule"
 	DENY_IP_LIST_FILE="/etc/iptables/denyIpList.txt"
-	DATE_REMOTE=`wget -S --spider http://ftp.apnic.net/stats/apnic/delegated-apnic-latest 2>&1 | grep Last-Modified`
+  IPURL="http://nami.jp/ipv4bycc/cidr.txt.gz"
+  DATE_REMOTE=`wget -S --spider ${IPURL} 2>&1 | grep Last-Modified`
 	DO_WGET=1
 }
 
@@ -42,28 +43,14 @@ update_dalfile() {
 	if [ ${DO_WGET} = 1 ];
 	then
 		echo "${DATE_REMOTE}" > "${DATE_FILE}"
-		wget -O "${DAL_FILE}" http://ftp.apnic.net/stats/apnic/delegated-apnic-latest
+    wget -O "${DAL_FILE}".gz ${IPURL}
+    gzip -d "${DAL_FILE}".gz 
 	fi
 }
 
 drop_settings(){
 	for cc in <%= @drop_countries.join(' ') %>; do
-		ADDRESSES=(`cat "${DAL_FILE}" | grep "^apnic|${cc}|ipv4" | awk '
-		BEGIN {
-			FS = "|";
-			OFMT = "%d";
-			for (i = 0; i < 32; i++)
-			{
-				pow[32 - i] = 2 ^ i;
-			}
-		}
-		{
-			for (j in pow)
-			{
-				if ($5 == pow[j]) print $4 "/" j;
-			}
-		}
-		'`);
+    ADDRESSES=(`cat "${DAL_FILE}" | sed -n "s/^${cc}\t//p"`);
 		for ADDRESS in ${ADDRESSES[@]}; do
 			echo "-A INPUT -s ${ADDRESS} -j drop-country-${cc}"
 		done
@@ -71,23 +58,7 @@ drop_settings(){
 }
 
 accept_settings(){
-	ADDRESSES=(`cat "${DAL_FILE}" | grep '^apnic|JP|ipv4' | awk '
-	BEGIN {
-		FS = "|";
-		OFMT = "%d";
-		for(i = 0; i < 32; i++)
-		{
-			pow[32 - i] = 2 ^ i;
-		}
-	}
-	{
-		for (j in pow)
-		{
-			if ($5 == pow[j]) print $4 "/" j;
-		}
-	}
-	'`);
-	i=1;
+  ADDRESSES=(`cat "${DAL_FILE}" | sed -n "s/^JP\t//p"`);
 	for ADDRESS in ${ADDRESSES[@]} ; do
 		echo "-A INPUT -s ${ADDRESS} -p tcp -m tcp --dport 22 --tcp-flags FIN,SYN,RST,ACK SYN -m state --state NEW -m hashlimit --hashlimit-name t_sshd --hashlimit 3/min --hashlimit-burst 3 -j ACCEPT"
 	done
