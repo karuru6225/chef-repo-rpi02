@@ -11,6 +11,7 @@
     "recipe[ddns]",
     "recipe[basic-settings::ntpdate]",
     "recipe[basic-settings::git]",
+    "recipe[github]",
     "recipe[vim]"
   ]
 }

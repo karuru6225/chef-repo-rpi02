@@ -16,13 +16,25 @@ service 'hostapd' do
 end
 
 settings = Chef::EncryptedDataBagItem.load('hostapd', 'settings')
-template '/etc/hostapd/hostapd.conf' do
-  source 'hostapd.conf.erb'
+template '/etc/hostapd/hostapd_2.4ghz.conf' do
+  source 'hostapd_2.4ghz.conf.erb'
   owner 'root'
   group 'root'
   mode 00600
   variables(
-    ssid: settings['ssid'],
+    ssid: settings['ssid']+'-g',
+    pass: settings['pass']
+  )
+  notifies :restart, 'service[hostapd]', :delayed
+end
+
+template '/etc/hostapd/hostapd_5ghz.conf' do
+  source 'hostapd_5ghz.conf.erb'
+  owner 'root'
+  group 'root'
+  mode 00600
+  variables(
+    ssid: settings['ssid']+'-a',
     pass: settings['pass']
   )
   notifies :restart, 'service[hostapd]', :delayed
